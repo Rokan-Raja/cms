@@ -8,18 +8,22 @@
 		$ad = $_POST['ad'];
 		$work= $_POST['work'];
 		$sq = $_POST['sq'];
-		$fl = $_POST['fl'];
+		$floor = $_POST['fl'];
 		$budget = $sq * 1500;
-		if(!empty($fl))
+		if(!empty($floor))
 		{
-			$budget =$budget + ($sq-($sq*(3/100))) * 1500;
+			$budget=$budget+($floor*$sq)*1495;
 		}
-		$sql = "INSERT INTO adduser(username,address,workplace,email,phone,squarefeet,floor,butget) VALUES('$name','$ad','$work','$mail',$ph,$sq,$fl,$budget)";
+		
+		$sql = "INSERT INTO adduser(username,address,workplace,email,phone,squarefeet,floor,butget) VALUES('$name','$ad','$work','$mail',$ph,$sq,$floor,$budget)";
 		if($conn->query($sql)){
 			$_SESSION['success'] = 'Added Successfully';
 			$id=mysqli_insert_id($conn);
 			$st="New";
-			$query="INSERT INTO project(project_id,customer_name,status) Values($id,'$name','$st')";
+			$query="INSERT INTO projects(project_id,customer_name,status) Values($id,'$name','$st')";
+			mysqli_query($conn,$query);
+
+			$query="INSERT INTO account(project_id,total_budget) Values($id,$budget)";
 			mysqli_query($conn,$query);
 		}
 		else{

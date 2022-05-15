@@ -23,7 +23,7 @@
         <?php
         include_once('connection.php');
         $st=$_POST['status'];
-        $sql = "SELECT * FROM project WHERE status='$st'";
+        $sql = "SELECT * FROM projects WHERE status='$st'";
         $query = $conn->query($sql);
         while ($row = $query->fetch_assoc()) {
             echo
@@ -36,10 +36,9 @@
             <td>
             <a href='#edit_".$row['id']."' class='btn btn-success btn-sm' data-toggle='modal'><span class='glyphicon glyphicon-edit'></span> Edit</a>
             <a href='#complete_".$row['id']."' class='btn btn-info btn-sm' data-toggle='modal'><span class='glyphicon glyphicon-floppy-saved'></span> Complete</a>
-            <a href='#cancel_".$row['id']."' class='btn btn-danger btn-sm' data-toggle='modal'><span class='glyphicon glyphicon-remove'></span> Cancel</a>
             </td>
         </tr>";
-        include('edit_complete_cancel.php');
+        include('edit_complete.php');
         }
         ?>
     </tbody>
@@ -57,15 +56,6 @@
 <script>
 $(document).ready(function() {
 $('#myTable').DataTable();
-});
-$('#edit').click(function () { 
-var wd1=$('#wd').val();
-var p1=$('#p').val();
-var id1=$('#id').val();
-var name1=$('#name').val();
-$.post('form_project/edit.php',{id:id1,p:p1,name:name1,wd:wd1}, function(data){
-    window.location.reload(true);
-});
 });
 </script> 
 

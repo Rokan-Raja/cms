@@ -21,7 +21,7 @@
         <?php
         include_once('connection.php');
         $st=$_POST['status'];
-        $sql = "SELECT * FROM project WHERE status='$st'";
+        $sql = "SELECT * FROM projects WHERE status='$st'";
         $query = $conn->query($sql);
         while ($row = $query->fetch_assoc()) {
             echo

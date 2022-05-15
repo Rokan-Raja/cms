@@ -65,13 +65,13 @@ if(!(isset($_SESSION['admin']) || isset($_SESSION['contractor'])))
 			<nav class="nav">
 				<div> <a href="#" class="nav_logo"> <i class='bx bx-building-house nav_logo-icon'></i> <span style="font-size: 14px;" class="nav_logo-name">AR Builders</span> </a>
 				<div class="nav_list">
-						<a href="home.php" class="nav_link home active"> <i class='bx bx-archive nav_icon'></i> <span class="nav_name">Project</span> </a>
+						<a href="home.php" class="nav_link home"> <i class='bx bx-archive nav_icon'></i> <span class="nav_name">Project</span> </a>
 						<a href="user.php" class="nav_link user"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a>
 						<a href="emp.php" class="nav_link emp"> <i class='bx bx-user-circle nav_icon'></i> <span class="nav_name">Employees</span> </a>
 						<a href="contract.php" class="nav_link con"> <i class='bx bx-user-voice nav_icon'></i> <span class="nav_name">Contractors</span> </a>
 						<a href="acc.php" class="nav_link acc"> <i class='bx bx-wallet nav_icon'></i> <span class="nav_name">Accounts</span> </a>
 						<a href="team.php" class="nav_link team"> <i class='bx bx-group nav_icon'></i> <span class="nav_name">Team</span> </a>
-						<a href="material.php" class="nav_link material"> <i class='bx bx-briefcase nav_icon'></i> <span class="nav_name">RawMaterial</span></a>
+						<a href="material.php" class="nav_link material active"> <i class='bx bx-briefcase nav_icon'></i> <span class="nav_name">RawMaterial</span></a>
 						<a href="salary.php" class="nav_link salary"> <i class='bx bx-credit-card nav_icon'></i> <span class="nav_name">Salary</span> </a>
 						<a href="report.php" class="nav_link report"> <i class='bx bx-file nav_icon'></i> <span class="nav_name">Reports</span> </a>
 						<a href="work_entry.php" class="nav_link entry"> <i class='bx bx-receipt nav_icon'></i> <span class="nav_name">Work Entry</span> </a>
@@ -81,7 +81,7 @@ if(!(isset($_SESSION['admin']) || isset($_SESSION['contractor'])))
 			</nav>
 		</div>
 		<div class="container-fluid" style="font-size: 14px;">
-			<h1 class="page-header text-center">Project Details:</h1><br><br>
+			<h1 class="page-header text-center">Raw Material</h1><br><br>
 			<div class="row">
 				<div class="col-sm-10 col-sm-offset-1">
 					<div class="row">
@@ -109,93 +109,47 @@ if(!(isset($_SESSION['admin']) || isset($_SESSION['contractor'])))
 						?>
 					</div>
 					<div class="row">
-						<form id="frm" class="form-inline">
-							<div class="col-sm-3 mb-3">
-								<label for="Project" class="form-label">Project Status:</label><br>
-								<select class="form-control" name="status" id="status">
-									<option value="New">New</option>
-									<option value="Running">Running</option>
-									<option value="Completed">Completed</option>
+						<form id="frm" style="margin-left: 30%;">
+							<div class="col-md-7 mb-3">
+								<select class="form-control" name="material" id="material">
+									<option value="0">--SELECT--</option>
+									<option value="mat">Material List</option>
+									<option value="t_mat">Transfer Material</option>
 								</select>
 							</div>
 						</form>
-						<br>
-						<br>
 					</div>
-					<div class="height10">
-					</div>
-					<br>
-					<div id="mytable">
+					<div class="row">
+						<div id="table">
 
+						</div>
 					</div>
 				</div>
 			</div>
-
-			<script src="jquery/jquery.js"></script>
-			<script>
-				$(document).ready(function() {
-					var c = $('#status').val();
-					if (c == "New") {
-						$.ajax({
-							type: "post",
-							url: "form_project/newproject.php",
-							data: $('#frm').serialize(),
-							success: function(data) {
-								$('#mytable').html(data);
-							}
-						});
-					} else if (c == 'Running') {
-						$.ajax({
-							type: "post",
-							url: "form_project/run_project.php",
-							data: $('#frm').serialize(),
-							success: function(data) {
-								$('#mytable').html(data);
-							}
-						});
-					} else if (c == "Completed") {
-						$.ajax({
-							type: "post",
-							url: "form_project/com_project.php",
-							data: $('#frm').serialize(),
-							success: function(data) {
-								$('#mytable').html(data);
-							}
-						});
-					}
-				});
-				$('#status').change(function() {
-					var c = $('#status').val();
-					if (c == "New") {
-						$.ajax({
-							type: "post",
-							url: "form_project/newproject.php",
-							data: $('#frm').serialize(),
-							success: function(data) {
-								$('#mytable').html(data);
-							}
-						});
-					} else if (c == 'Running') {
-						$.ajax({
-							type: "post",
-							url: "form_project/run_project.php",
-							data: $('#frm').serialize(),
-							success: function(data) {
-								$('#mytable').html(data);
-							}
-						});
-					} else if (c == "Completed") {
-						$.ajax({
-							type: "post",
-							url: "form_project/com_project.php",
-							data: $('#frm').serialize(),
-							success: function(data) {
-								$('#mytable').html(data);
-							}
-						});
-					}
-				});
-			</script>
+			<?php
+			include('form_material/add_modal.php');
+			include('form_material/add_modal2.php');
+			?>
+		</div>
+		<script src="jquery/jquery.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="datatable/jquery.dataTables.min.js"></script>
+		<script src="datatable/dataTable.bootstrap.min.js"></script>
+		<script>
+			$('#material').change(function() {
+				var mat = $('#material').val();
+				if (mat != 0) {
+					$.ajax({
+						type: "post",
+						url: "form_material/material_show.php",
+						data: $('#frm').serialize(),
+						success: function(data) {
+							$('#table').html(data)
+						}
+					});
+				}
+			});
+		</script>
 	</body>
 
 </html>

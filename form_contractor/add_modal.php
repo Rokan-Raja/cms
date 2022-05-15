@@ -1,9 +1,4 @@
 <!-- Add New -->
-<?php
-include('connection.php');
-$sql="SELECT * FROM contractor";
-$query=mysqli_query($conn,$sql);
-?>
 <div class="modal fade" id="addnew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -15,31 +10,21 @@ $query=mysqli_query($conn,$sql);
 			</div>
 			<div class="modal-body">
 				<div class="container-fluid">
-					<form method="POST" id="frm" action="form_employee/add.php">
-					<div class="row form-group">
+					<form method="POST" id="frm" action="form_contractor/add.php">
+						<div class="row form-group">
 							<div class="col-sm-4">
-								<label class="control-label modal-label">Contractor ID:</label>
+								<label class="control-label modal-label">Contractor Name:</label>
 							</div>
 							<div class="col-sm-8">
-								<select class="form-control" name="con_id" required>
-									<option value="0">--select--</option>
-									<?php
-									while($row=mysqli_fetch_assoc($query))
-									{
-									?>
-									<option value=<?php echo $row['id']; ?>><?php echo $row['id']; ?></option>
-									<?php
-									}
-									?>
-								</select>
+								<input type="text" class="form-control" name="name" required>
 							</div>
 						</div>
 						<div class="row form-group">
 							<div class="col-sm-4">
-								<label class="control-label modal-label">Employee Name:</label>
+								<label class="control-label modal-label">Email:</label>
 							</div>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" name="name" required>
+								<input type="email" class="form-control" name="mail" required>
 							</div>
 						</div>
 						<div class="row form-group">
@@ -56,23 +41,6 @@ $query=mysqli_query($conn,$sql);
 							</div>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" name="ad" required>
-							</div>
-						</div>
-						<div class="row form-group">
-							<div class="col-sm-4">
-								<label class="control-label modal-label">Employee Type:</label>
-							</div>
-							<div class="col-sm-8">
-								<select class="form-control" name="et" required>
-									<option value="Mason">Mason</option>
-									<option value="Labour">Labour</option>
-									<option value="Barbender">Barbender</option>
-									<option value="Painter">Painter</option>
-									<option value="Plumber">Plumber</option>
-									<option value="Electrician">Electrician</option>
-									<option value="Welder">Welder</option>
-									<option value="Carpender">Carpender</option>
-								</select>
 							</div>
 						</div>
 						<div class="row form-group">

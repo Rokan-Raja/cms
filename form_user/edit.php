@@ -11,16 +11,21 @@
 		$ad = $_POST['ad'];
 		$work= $_POST['work'];
 		$sq = $_POST['sq'];
-		$fl = $_POST['fl'];
+		$floor = $_POST['fl'];
 		$budget = $sq * 1500;
-		if(!empty($fl))
+		if(!empty($floor))
 		{
-			$budget =$budget + ($sq-($sq*(3/100))) * 1500;
+			$budget=$budget+($floor*$sq)*1495;
 		}
 
-		$sql = "UPDATE adduser SET username='$name',address='$ad',workplace='$work',email='$mail',phone=$ph,squarefeet=$sq,butget=$budget,floor=$fl where id=$id";
+		$sql = "UPDATE adduser SET username='$name',address='$ad',workplace='$work',email='$mail',phone=$ph,squarefeet=$sq,butget=$budget,floor=$floor where id=$id";
 		if($conn->query($sql)){
 			$_SESSION['success'] = 'Update Successfully';
+			$sql="UPDATE projects SET customer_name='$name' WHERE project_id=$id";
+			mysqli_query($conn,$sql);
+
+			$sql="UPDATE account SET total_budget=$budget WHERE project_id=$id";
+			mysqli_query($conn,$sql);
 		}
 
 		else{

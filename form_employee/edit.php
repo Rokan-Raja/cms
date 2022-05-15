@@ -6,6 +6,7 @@
 
 		$id = $_POST['id'];
 		$con_id=$_POST['con_id'];
+		$team_id=$_POST['team_id'];
 		$con1_id=$_POST['con1_id'];
 	 	$name = $_POST['name'];
 		$mail = $_POST['mail'];
@@ -14,8 +15,18 @@
 		$ex = $_POST['ex'];
 		$st = $_POST['st'];
 
+		$date=date('m.d.Y');
+		$search="SELECT *FROM work_entry WHERE worker_id=$id AND date='$date'";
+		$query=mysqli_query($conn,$search);
+		if(mysqli_num_rows($query)!=0)
+		{
+			$_SESSION['error'] = 'Already Working Team';
+			header('location:../emp.php');
+			exit;
+		}
 
-		$sql = "UPDATE employee SET con_id=$con_id,emp_name='$name',emp_address='$ad',emp_phone=$ph,experience=$ex,status='$st' where id=$id";
+
+		$sql = "UPDATE employee SET con_id=$con_id,team_id=$team_id,emp_name='$name',emp_address='$ad',emp_phone=$ph,experience=$ex,status='$st' where id=$id";
 		if($conn->query($sql)){
 			$_SESSION['success'] = 'Update Successfully';
 

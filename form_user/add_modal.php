@@ -32,7 +32,7 @@
 								<label class="control-label modal-label">Phone:</label>
 							</div>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" name="ph" required>
+								<input type="text" class="form-control" pattern="[6789][0-9]{9}" minlength="10" maxlength="10" name="ph" required>
 							</div>
 						</div>
 						<div class="row form-group">
@@ -56,7 +56,7 @@
 								<label class="control-label modal-label">Square Feet:</label>
 							</div>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" name="sq" required>
+								<input type="text"  class="form-control" name="sq" required>
 							</div>
 						</div>
 						<div class="row form-group">
@@ -64,7 +64,7 @@
 								<label class="control-label modal-label">No of Floors</label>
 							</div>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" name="fl" required>
+								<input type="text" class="form-control" maxlength="2" name="fl" required>
 							</div>
 						</div>
 				</div>

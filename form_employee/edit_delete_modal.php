@@ -23,6 +23,26 @@
 						</div>
 						<div class="row form-group">
 							<div class="col-sm-4">
+								<label class="control-label modal-label">Team ID:</label>
+							</div>
+							<div class="col-sm-8">
+								<select class="form-control" name="team_id" required>
+									<option value="0">--select--</option>
+									<?php
+									$sql1="SELECT * FROM team WHERE con_id=".$row['con_id']." AND status!='Disabled'";
+									$query1=mysqli_query($conn,$sql1);
+									while($rows=mysqli_fetch_assoc($query1))
+									{
+									?>
+									<option value=<?php echo $rows['id']; ?>><?php echo $rows['id']; ?></option>
+									<?php
+									}
+									?>
+								</select>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-sm-4">
 								<label class="control-label modal-label">Employee Name:</label>
 							</div>
 							<div class="col-sm-8">
@@ -34,7 +54,7 @@
 								<label class="control-label modal-label">Phone:</label>
 							</div>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" name="ph" value="<?php echo $row['emp_phone']; ?>">
+								<input type="text" class="form-control" pattern="[6789][0-9]{9}" minlength="10" maxlength="10" name="ph" value="<?php echo $row['emp_phone']; ?>">
 							</div>
 						</div>
 						<div class="row form-group">
@@ -61,7 +81,7 @@
 								<label class="control-label modal-label">Experience:</label>
 							</div>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" name="ex" value="<?php echo $row['experience']; ?>">
+								<input type="text" class="form-control" maxlength="2"  name="ex" value="<?php echo $row['experience']; ?>">
 							</div>
 						</div>
 				</div>
